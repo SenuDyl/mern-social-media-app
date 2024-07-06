@@ -48,12 +48,48 @@ const Form = () => {
     const isLogin = pageType === "login"
     const isRegister = pageType === "register"
 
-    const login = async (values, onSubmitProps) => {
-        console.log("logged in")
+    const register = async (values, onSubmitProps) => {
+        const formData = new FormData()
+        for (let value in values) {
+            formData.append(value, values[value])
+        }
+        formData.append("picture", values.picture.name)
+        const savedUserResponse = await fetch(
+            "http://localhost:3001/auth/register",
+            {
+                method: "POST",
+                body: formData
+            }
+        )
+
+        const savedUser = await savedUserResponse.json()
+        console.log("User successfully registered", savedUser)
+        onSubmitProps.resetForm()
+        if (savedUser) {
+            setPageType("login")
+        }
     }
 
-    const register = async (values, onSubmitProps) => {
-        console.log("Successfully registered")
+    const login = async (values, onSubmitProps) => {
+        const loggedInResponse = await fetch(
+            "http://localhost:3001/auth/login",
+            {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(values)
+            }
+        )
+
+        const loggedIn = await loggedInResponse.json()
+        console.log("User successfully registered", loggedIn)
+        onSubmitProps.resetForm()
+        if (loggedIn) {
+            dispatch(setLogin({
+                user: loggedIn.user,
+                token: loggedIn.token
+            }))
+            navigate("/home")
+        }
     }
 
 
@@ -178,6 +214,7 @@ const Form = () => {
                         />
                         <TextField
                             label="Password"
+                            type='password'
                             onBlur={handleBlur}
                             onChange={handleChange}
                             value={values.password}

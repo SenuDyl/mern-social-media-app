@@ -49,7 +49,7 @@ const NavBar = () => {
     const primaryLight = theme.palette.primary.light
     const alt = theme.palette.background.alt
 
-    //const fullName = `${user.firstName} ${user.lastName}`
+    const fullName = `${user.firstName} ${user.lastName}`
 
     return (
         <FlexBetween padding="1rem 6%" backgroundColor={alt}>
@@ -91,9 +91,9 @@ const NavBar = () => {
                     <Message sx={{ fontSize: "25px" }} />
                     <Notifications sx={{ fontSize: "25px" }} />
                     <Help sx={{ fontSize: "25px" }} />
-                    <FormControl variant="standard" value="name">
+                    <FormControl variant="standard" value={fullName}>
                         <Select
-                            value="name"
+                            value={fullName}
                             sx={{
                                 backgroundColor: neutralLight,
                                 width: "150px",
@@ -109,8 +109,8 @@ const NavBar = () => {
                             }}
                             input={<InputBase />}
                         >
-                            <MenuItem value="name">
-                                <Typography>John Doe</Typography>
+                            <MenuItem value={fullName}>
+                                <Typography>{fullName}</Typography>
                             </MenuItem>
                             <MenuItem onClick={() => dispatch(setLogout())}>
                                 <Typography>Logout</Typography>

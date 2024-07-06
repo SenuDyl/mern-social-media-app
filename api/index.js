@@ -64,8 +64,8 @@ mongoose.connect(process.env.MONGO, {
     app.listen(PORT, () => {
         console.log(`Server running on port: ${PORT}`);
         // Uncomment the following line to seed the database
-        User.insertMany(users);
-        Post.insertMany(posts);
+        // User.insertMany(users);
+        // Post.insertMany(posts);
     });
 }).catch((error) => {
     console.log(error.message || "Server failed to start");
