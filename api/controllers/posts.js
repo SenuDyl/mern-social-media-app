@@ -4,7 +4,7 @@ import User from '../models/User.js';
 export const createPost = async (req, res) => {
     try {
         const { userId, description, picturePath } = req.body;
-        const user = await UserActivation.findById(userId);
+        const user = await User.findById(userId);
         const newPost = new Post({
             userId,
             firstName: user.firstName,
@@ -14,15 +14,17 @@ export const createPost = async (req, res) => {
             userPicturePath: user.picturePath,
             picturePath,
             likes: {},
-            comments: []
-        })
+            comments: [],
+        });
         await newPost.save();
+
         const post = await Post.find();
+        console.log("post uploaded:", post);
         res.status(201).json(post);
     } catch (err) {
-        res.status(500).json({ message: err.message });
+        res.status(409).json({ message: err.message });
     }
-}
+};
 
 export const getFeedPosts = async (req, res) => {
     try {
