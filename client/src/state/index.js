@@ -7,6 +7,8 @@ const initialState = {
     posts: [],
 };
 
+//Function provided by Redux Toolkit that simplifies the process of creating a Redux slice
+//A slice is a collection of Redux reducer logic and actions for a single feature of the application
 export const authSlice = createSlice({
     name: "auth",
     initialState,

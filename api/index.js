@@ -3,11 +3,11 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import multer from 'multer';
-import helmet from 'helmet';
-import morgan from 'morgan';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import multer from 'multer'; //Middleware for handling multipart/form-data, used for file uploads
+import helmet from 'helmet'; //Middleware to secure HTTP headers by setting various HTTP headers
+import morgan from 'morgan'; //HTTP request logger middleware for Node.js
+import path from 'path'; //Provides utilities for working with file and directory paths
+import { fileURLToPath } from 'url'; //Converts a file URL to a path, used to handle module paths
 import authRoutes from './routes/auth.js';
 import userRoutes from './routes/users.js';
 import postRoutes from './routes/posts.js';
@@ -20,15 +20,15 @@ import { users, posts } from './data/index.js';
 
 /* CONFIGURATIONS */
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __filename = fileURLToPath(import.meta.url); //Gets the path of the current module file
+const __dirname = path.dirname(__filename); //Gets the directory name of the current module file
 dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(helmet());
-app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" })); //Allows resources to be shared across origins
 app.use(cors());
-app.use(morgan('common'));
+app.use(morgan('common')); //Logs HTTP requests in a common format
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use("/assets", express.static(path.join(__dirname, 'public/assets')));
@@ -63,9 +63,7 @@ mongoose.connect(process.env.MONGO, {
 }).then(() => {
     app.listen(PORT, () => {
         console.log(`Server running on port: ${PORT}`);
-        // Uncomment the following line to seed the database
-        // User.insertMany(users);
-        // Post.insertMany(posts);
+
     });
 }).catch((error) => {
     console.log(error.message || "Server failed to start");

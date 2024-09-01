@@ -3,10 +3,13 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import authReducer from './state';
+//Used to create the REDUX store
 import { configureStore } from '@reduxjs/toolkit';
+//Make the Redux store available to the entire app
 import { Provider } from 'react-redux';
+//Responsible for persisting the Redux state
 import {
-  persistStore,
+  persistStore, //Store in local storage
   persistReducer,
   FLUSH,
   REHYDRATE,
@@ -15,7 +18,9 @@ import {
   PURGE,
   REGISTER
 } from 'redux-persist';
+//Manage and persist the Redux state across page reloads or browser sessions
 import storage from 'redux-persist/lib/storage';
+//Delay the rendering of the app until the persisted state has been retrieved and saved to Redux
 import { PersistGate } from 'redux-persist/integration/react';
 
 const persistConfig = { key: "root", storage, version: 1 };

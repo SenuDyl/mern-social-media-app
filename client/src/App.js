@@ -9,13 +9,16 @@ import { createTheme } from '@mui/material/styles';
 import { themeSettings } from './theme';
 
 function App() {
+  //Access the Redux store's state
   const mode = useSelector((state) => state.mode);
   const isAuth = useSelector((state) => state.token);
+  //Used to memoize the theme object
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
   return (
     <div className="app">
       <BrowserRouter>
         <ThemeProvider theme={theme}>
+          {/* Applies a baseline CSS reset to ensure consistent styling across browsers */}
           <CssBaseline />
           <Routes>
             <Route path="/" element={<LoginPage />} />
